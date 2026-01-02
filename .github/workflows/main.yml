@@ -1,0 +1,20 @@
+name: Crear EXE de Mensajeria
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Instalar PyInstaller
+      run: pip install pyinstaller
+    - name: Crear EXE
+      run: pyinstaller --noconsole --onefile mensajeria.py
+    - name: Guardar resultado
+      uses: actions/upload-artifact@v3
+      with:
+        name: Programa-Chat-Local
+        path: dist/mensajeria.exe
